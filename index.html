@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070c1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Ring Rivals — Mobile Edition | Mariah vs Moiz (Offline)</title>
+<style>
+  :root{color-scheme:dark;--bg:#080d1e;--panel:#131d35;--line:#334362;--cream:#f5f2e9;--muted:#9eb0cf;--red:#ff5076;--cyan:#42d6ef;--gold:#ffce69}
+  *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% -20%,#233a62 0%,#0b1329 55%,#060a15 100%);color:var(--cream);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .app{width:min(1140px,calc(100% - 24px));margin:0 auto;padding:18px 0 26px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 4px 12px;flex-wrap:wrap}.brand{font-weight:1000;font-size:clamp(20px,3vw,30px);letter-spacing:.8px;line-height:1}.brand span{color:var(--gold)}.subtitle{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--muted);margin-top:6px}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.pill{border:1px solid #465474;background:#1a2742;color:var(--cream);border-radius:10px;padding:9px 13px;font-weight:800;font-size:12px;letter-spacing:.3px}.pill:hover{background:#273855}.pill.primary{color:#16182c;background:var(--gold);border-color:#ffe09b}.pill.primary:hover{background:#ffdd93}
+  .scorebar{display:grid;grid-template-columns:1fr minmax(146px,.46fr) 1fr;background:linear-gradient(180deg,#1b2944,#111b31);border:1px solid #435574;border-radius:15px 15px 0 0;box-shadow:0 8px 40px #0006;overflow:hidden}.fighter-hud{padding:14px 18px}.fighter-hud.right{text-align:right}.name-row{display:flex;justify-content:space-between;align-items:baseline;gap:6px}.right .name-row{flex-direction:row-reverse}.fighter-name{font-size:clamp(16px,2.4vw,25px);font-weight:1000;letter-spacing:1px}.mariah{color:var(--red)}.moiz{color:var(--cyan)}.tiny{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:800}.track{height:13px;border-radius:30px;overflow:hidden;background:#050a15;border:1px solid #3a4661;margin-top:9px}.bar{height:100%;width:100%;transition:width .13s linear;box-shadow:inset 0 0 8px #fff2}.hp1{background:linear-gradient(90deg,#ff8a66,#fa426d)}.hp2{background:linear-gradient(90deg,#29a8eb,#68eeed)}.stamina{height:5px;margin-top:5px}.stamina .bar{background:var(--gold)}.hud-footer{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:12px;font-weight:800;color:#c6d5ea}.right .hud-footer{flex-direction:row-reverse}.centerboard{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0d162b;border-left:1px solid #344565;border-right:1px solid #344565;padding:8px}.round{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:1.6px}.timer{font-size:clamp(30px,5vw,46px);font-weight:1000;font-variant-numeric:tabular-nums;letter-spacing:1.5px;line-height:1.1}.small-vs{font-size:9px;color:#91a4c5;font-weight:800;letter-spacing:1px}
+  .arena{position:relative;overflow:hidden;background:#090e21;border:1px solid #435574;border-top:0;border-bottom:0}.arena canvas{display:block;width:100%;height:auto;aspect-ratio:1100/650;touch-action:none}.arena::after{content:'';position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 -36px 35px -36px #0009}.bannerline{background:#0f1930;border:1px solid #405270;border-radius:0 0 14px 14px;padding:10px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.tag{font-size:11px;letter-spacing:1px;font-weight:900;color:#d2ddee}.tag b{color:#ffdc8b}.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#68e4a8;box-shadow:0 0 14px #69f1bd;margin-right:6px}
+  .game-overlay{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#060a19b8,#060a19c9);padding:16px;backdrop-filter:blur(3px)}.game-overlay[hidden]{display:none}.overlay-card{text-align:center;background:linear-gradient(155deg,#263c66f2,#10192ff5);border:1px solid #7488ad;border-radius:22px;padding:25px clamp(17px,5vw,44px);box-shadow:0 25px 70px #000a;max-width:500px;width:100%}.eyebrow{color:var(--gold);letter-spacing:3px;font-size:11px;font-weight:900}.overlay-title{font-size:clamp(30px,6vw,58px);line-height:1.01;letter-spacing:-1px;font-weight:1000;margin:11px 0}.overlay-description{color:#d6e3f9;font-size:14px;line-height:1.5;margin:10px auto 20px;max-width:370px}.bigbtn{background:linear-gradient(90deg,#ff5578,#ffae67);border:0;color:#151525;padding:13px 28px;border-radius:11px;font-size:17px;font-weight:1000;box-shadow:0 8px 25px #ff4b7150}.bigbtn:hover{filter:brightness(1.14)}.overlay-note{color:#a8badc;font-size:11px;margin-top:14px;font-weight:700}
+  .instructions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.help{background:#101b30;border:1px solid #2d405e;border-radius:13px;padding:13px 16px}.help strong{font-size:13px;letter-spacing:.4px}.help p{margin:7px 0 0;font-size:12px;line-height:1.7;color:#adbfda}.kbd{display:inline-block;padding:1px 5px;background:#263859;border:1px solid #506180;border-bottom-width:2px;border-radius:4px;color:#fff;font-weight:800;font-size:11px;min-width:22px;text-align:center}.footer{color:#7589aa;font-size:11px;line-height:1.5;text-align:center;margin:14px 0 0}.touch-controls{display:none;grid-template-columns:1fr auto;gap:12px;margin-top:12px}.touch-group{display:flex;gap:8px;align-items:center}.touch-group.right-controls{justify-content:flex-end}.touch-key{min-width:52px;min-height:55px;border:1px solid #526b92;border-bottom:3px solid #7686a5;background:#253a60;border-radius:12px;color:#fff;font-weight:900;touch-action:none;user-select:none}.touch-key.attack{background:#71304d;border-color:#d26787}.touch-key:active,.touch-key.pressed{transform:translateY(2px);background:#46608a}.touch-key.attack:active,.touch-key.attack.pressed{background:#ab436b}
+  @media(max-width:750px){.app{width:calc(100% - 12px);padding-top:10px}.topbar{margin-bottom:9px}.fighter-hud{padding:10px 8px}.scorebar{grid-template-columns:1fr 90px 1fr}.centerboard{padding:4px}.hud-footer{font-size:10px}.timer{font-size:29px}.tiny{font-size:9px}.bannerline{padding:8px}.tag{font-size:9px}.instructions{grid-template-columns:1fr}.touch-controls{display:grid}.overlay-card{padding:20px 12px}.overlay-title{font-size:37px}.overlay-description{font-size:12px}.touch-key{min-width:43px;min-height:48px;font-size:11px}.touch-group{gap:5px}}
+
+/* Visible fighting controls and a help panel (works on desktop and mobile). */
+.controls-panel{margin:11px 0;background:#162642;border:1px solid #536b8f;border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;color:#e9f1ff}
+.controls-panel[hidden],#p2Touch[hidden]{display:none!important}
+.controls-panel h3{margin:0 0 5px;font-size:14px;color:#ffce69}
+.controls-panel p{margin:0;font-size:12px;line-height:1.8}
+.control-intro{padding:9px 12px 0;font-size:12px;font-weight:800;color:#d9e7fc;display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.control-intro b{color:#ff7997}
+.touch-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:12px;margin-top:9px}
+.touch-group{flex-wrap:wrap}
+.touch-key{min-width:54px;min-height:52px;touch-action:none}
+.touch-key:focus-visible{outline:3px solid #ffce69}
+.p2-touch{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:9px;padding:9px;border:1px solid #426482;border-radius:12px}
+.p2-touch .touch-key.attack{background:#194761;border-color:#39b8cf}
+@media(max-width:750px){.touch-controls{grid-template-columns:1fr;gap:9px}.touch-group,.touch-group.right-controls{justify-content:center}.controls-panel{grid-template-columns:1fr}.touch-key{min-width:48px;min-height:48px}}
+
+/* MOBILE EDITION — two-thumb gamepad, immersive portrait and landscape layouts */
+html{-webkit-text-size-adjust:100%}
+button{-webkit-tap-highlight-color:transparent}
+.touch-controls{display:grid;grid-template-columns:minmax(0, .86fr) minmax(0, 1.14fr);gap:12px;align-items:stretch;user-select:none;-webkit-user-select:none;touch-action:none;container-type:inline-size}
+.move-pad,.attack-pad{min-width:0;background:linear-gradient(155deg,#172945,#101c33);border:1px solid #354f76;border-radius:15px;padding:10px;display:flex;flex-direction:column;gap:7px}
+.pad-heading{display:flex;justify-content:space-between;align-items:center;color:#eef5ff;gap:5px;min-height:18px}
+.pad-heading strong{font-size:12px;letter-spacing:1.2px;color:#ffce69}.pad-heading span{font-size:9px;font-weight:800;letter-spacing:.8px;color:#9aaecf}
+.direction-buttons,.action-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.attack-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;flex:1}
+.touch-key{display:flex;justify-content:center;align-items:center;flex-direction:column;min-width:0;min-height:0;border-radius:13px;line-height:1.15;letter-spacing:.3px;touch-action:none;-webkit-user-select:none;user-select:none;white-space:nowrap}
+.touch-key.direction{height:65px;font-size:30px;background:linear-gradient(#365481,#243a60);border:1px solid #5c7eb4;border-bottom:4px solid #172744}
+.touch-key.secondary{height:44px;font-size:14px;gap:2px;background:#2c4364;border:1px solid #536f96}
+.touch-key.secondary span{font-size:10px;font-weight:900}
+.touch-key.attack{min-height:117px;gap:9px;font-size:12px;background:linear-gradient(150deg,#92365e,#572341);border:1px solid #cd678d;border-bottom:4px solid #43152b}
+.touch-key.hook-key{background:linear-gradient(150deg,#9e5b2c,#654027);border-color:#db955d;border-bottom-color:#563119}
+.touch-key.kick-key{background:linear-gradient(150deg,#286f95,#213b71);border-color:#54a4d2;border-bottom-color:#152e59}
+.touch-key .attack-icon{font-size:29px;filter:drop-shadow(0 3px 5px #0005)}
+.touch-key.pressed,.touch-key:active{transform:translateY(2px) scale(.97)!important;filter:brightness(1.28)!important;box-shadow:inset 0 4px 8px #0005}
+.touch-key:focus:not(:focus-visible){outline:0}
+/* Make touchscreen game playable within one viewport — no scrolling to find attacks. */
+@media (max-width:850px), (pointer:coarse){
+  html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+  .app{width:100%;max-width:none;height:100vh;height:100dvh;display:flex;flex-direction:column;gap:0;padding:6px max(6px,env(safe-area-inset-right)) max(5px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left));overflow:hidden}
+  .topbar{flex:0 0 auto;gap:3px 8px;margin:0 0 6px;padding:0 2px}
+  .brand{font-size:20px}.subtitle{font-size:8px;letter-spacing:1.6px;margin-top:2px}
+  .actions{gap:5px}.actions .pill{padding:7px 8px;border-radius:9px;font-size:10px;white-space:nowrap}
+  .scorebar{flex:0 0 auto;grid-template-columns:minmax(0,1fr) 78px minmax(0,1fr);border-radius:12px 12px 0 0}
+  .fighter-hud{padding:7px 8px}.fighter-name{font-size:16px}.fighter-hud .tiny{display:none}
+  .track{height:10px;margin-top:5px}.stamina{height:4px;margin-top:4px}
+  .hud-footer{margin-top:5px;font-size:9px;gap:4px}.round{font-size:8px;letter-spacing:.3px}.timer{font-size:27px}.small-vs{font-size:7px}
+  .arena{flex:1 1 auto;min-height:0;max-height:none;border-bottom:1px solid #435574;border-radius:0 0 11px 11px}
+  /* Portrait close-up: camera follows both fighters across the full ring. */
+  .arena canvas{position:absolute;left:50%;top:0;transform:translateX(-50%);height:100%;width:auto;max-width:none;aspect-ratio:1100/650}
+  .game-overlay{padding:8px}.overlay-card{max-width:350px;padding:11px 12px;border-radius:16px}
+  .eyebrow{font-size:9px;letter-spacing:1.5px}.overlay-title{font-size:clamp(22px,6vw,37px);margin:5px 0}
+  .overlay-description{font-size:11px;line-height:1.32;margin:6px auto 10px}.bigbtn{padding:10px 15px;font-size:14px}
+  .overlay-note{font-size:9px;margin-top:7px}
+  .bannerline,.control-intro,.instructions,.footer{display:none}
+  .touch-controls{flex:0 0 auto;display:grid;grid-template-columns:43fr 57fr;gap:6px;margin-top:6px;width:100%}
+  .move-pad,.attack-pad{padding:7px 6px;gap:5px;border-radius:12px}
+  .pad-heading strong{font-size:10px}.pad-heading span{font-size:8px}
+  .direction-buttons,.action-mini,.attack-buttons{gap:5px}
+  .touch-key.direction{height:53px;font-size:27px;border-radius:11px}
+  .touch-key.secondary{height:43px;font-size:13px;border-radius:9px}.touch-key.secondary span{font-size:9px}
+  .touch-key.attack{min-height:101px;gap:9px;font-size:10px;border-radius:11px}
+  .touch-key .attack-icon{font-size:clamp(19px,6vw,30px)}
+  .controls-panel{position:fixed;left:8px;right:8px;top:48px;z-index:25;display:grid;grid-template-columns:1fr;gap:8px;padding:11px;max-height:65dvh;overflow:auto;box-shadow:0 18px 70px #000e}
+  .controls-panel p{font-size:11px}.controls-panel h3{font-size:12px}
+  #p2Touch:not([hidden]){flex:0 0 auto;max-height:66px;overflow:auto;padding:4px;gap:3px;margin:4px 0 0;align-content:center}
+  .p2-touch b{display:none}.p2-touch .touch-key{min-width:0;min-height:38px;padding:4px 7px;font-size:10px}
+}
+@media (max-width:390px){
+  .topbar{display:grid;grid-template-columns:1fr}.topbar .subtitle{display:none}.topbar .brand{font-size:18px}
+  .actions{justify-content:space-between}.actions .pill{flex:1;padding:6px 4px;font-size:9px}
+  .touch-key.attack{min-height:92px}.touch-key.direction{height:49px}.touch-key.secondary{height:39px}
+  .fighter-name{font-size:14px}.hud-footer{font-size:8px}
+}
+@media (max-height:690px) and (max-width:850px){
+  .app{padding-top:3px}.topbar{margin-bottom:3px}.brand{font-size:17px}
+  .actions .pill{padding-top:5px;padding-bottom:5px}
+  .fighter-hud{padding-top:5px;padding-bottom:5px}.centerboard{padding:3px}.timer{font-size:22px}
+  .touch-controls{margin-top:3px}.move-pad,.attack-pad{padding:4px;gap:3px}
+  .touch-key.direction{height:43px}.touch-key.secondary{height:35px}.touch-key.attack{min-height:83px}
+  .overlay-note{display:none}
+}
+@media (orientation:landscape) and (max-height:550px) and (pointer:coarse){
+  .app{display:grid;grid-template-columns:minmax(0,1fr) minmax(192px,34%);grid-template-rows:auto auto minmax(0,1fr);column-gap:7px;row-gap:3px;padding:4px max(6px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left))}
+  .topbar{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin:0}.subtitle{display:none}
+  .scorebar{grid-column:1/-1}.fighter-hud{padding:3px 8px}.track{margin-top:3px}.hud-footer{margin-top:3px}
+  .arena{grid-column:1;grid-row:3;height:100%;min-height:0;align-self:stretch}
+  .arena canvas{width:100%;height:100%;left:0;transform:none;object-fit:fill}
+  .touch-controls{grid-column:2;grid-row:3;display:grid;grid-template-columns:1fr;gap:4px;min-height:0;margin:0}
+  .move-pad,.attack-pad{padding:3px 5px;gap:3px}
+  .move-pad .direction-buttons,.move-pad .action-mini{flex:1;min-height:0}
+  .touch-key.direction,.touch-key.secondary{height:auto;min-height:29px;font-size:17px}.touch-key.secondary span{font-size:9px}
+  .touch-key.attack{min-height:0;flex:1;gap:1px;font-size:9px}.touch-key .attack-icon{font-size:20px}
+  #p2Touch:not([hidden]){position:fixed;bottom:0;left:0;right:0;z-index:30;background:#172945}
+}
+
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="topbar"><div><div class="brand">RING <span>RIVALS</span> 🥊</div><div class="subtitle">MOBILE EDITION • OFFLINE BOXING</div></div><div class="actions"><button class="pill" id="modeBtn" type="button">MODE: VS COMPUTER</button><button class="pill" id="controlsBtn" type="button" aria-expanded="false" aria-controls="controlsPanel">🎮 CONTROLS</button><button class="pill" id="soundBtn" type="button" aria-pressed="true">♫ SOUND: ON</button><button class="pill primary" id="restartBtn" type="button">↻ RESTART</button><button class="pill" id="pauseBtn" type="button">Ⅱ PAUSE</button></div></header>
+  <section class="scorebar" aria-label="Scoreboard">
+    <div class="fighter-hud"><div class="name-row"><span class="fighter-name mariah">MARIAH</span><span class="tiny">RED CORNER</span></div><div class="track" aria-label="Mariah health"><div id="hp1" class="bar hp1"></div></div><div class="track stamina"><div id="sp1" class="bar"></div></div><div class="hud-footer"><span id="p1score">POINTS 0</span><span id="p1wins">ROUNDS 0</span></div></div>
+    <div class="centerboard"><div class="round" id="roundLabel">ROUND 1 / 3</div><div class="timer" id="timer">60</div><div class="small-vs">SECONDS LEFT</div></div>
+    <div class="fighter-hud right"><div class="name-row"><span class="fighter-name moiz">MOIZ</span><span class="tiny">BLUE CORNER</span></div><div class="track" aria-label="Moiz health"><div id="hp2" class="bar hp2"></div></div><div class="track stamina"><div id="sp2" class="bar"></div></div><div class="hud-footer"><span id="p2score">POINTS 0</span><span id="p2wins">ROUNDS 0</span></div></div>
+  </section>
+  <div class="arena"><canvas id="game" width="1100" height="650" role="img" aria-label="Boxing game arena with Mariah, Moiz, a 2000-person audience, and two food courts"></canvas><div class="game-overlay" id="overlay"><div class="overlay-card"><div class="eyebrow" id="overlayEyebrow">THE CROWD IS WAITING</div><div class="overlay-title" id="overlayTitle">MARIAH <span style="color:#ffce69">VS</span> MOIZ</div><div class="overlay-description" id="overlayText">Box your way to victory in a packed stadium with 2,000 cheering fans! Win 2 rounds to become champion.</div><button class="bigbtn" id="startBtn" type="button">🥊 START FIGHT</button><div class="overlay-note" id="overlayNote">3 rounds • 60 seconds each • no internet needed</div></div></div></div>
+  <div class="bannerline"><span class="tag"><span class="live-dot"></span><b>2,000</b> ANIMATED SPECTATORS</span><span class="tag">🍿 FOOD COURT • BURGERS • POPCORN • DRINKS</span><span class="tag" id="modeLine">PLAYER 1 vs COMPUTER AI</span></div>
+  <section id="controlsPanel" class="controls-panel" hidden aria-label="How to play">
+    <div><h3>🥊 Mariah — Player 1</h3><p>Move: <b>A</b> / <b>D</b> · Jump: <b>W</b> · Block: <b>S</b><br>Jab: <b>F</b> or <b>SPACE</b> · Hook: <b>G</b> · Kick: <b>H</b>.<br>Get close to Moiz, then punch. You can also use the buttons right below the ring.</p></div>
+    <div><h3>🥊 Moiz — Player 2</h3><p>Switch MODE to <b>2 PLAYERS</b>.<br>Move: <b>←</b> / <b>→</b> · Jump: <b>↑</b> · Block: <b>↓</b><br>Jab: <b>J</b> · Hook: <b>K</b> · Kick: <b>L</b>. Pause: <b>P</b>.</p></div>
+  </section>
+  <div class="control-intro"><span>🎮 <b>PLAY AS MARIAH</b> — move close, then punch or kick</span><span>Mobile: hold movement + tap attack</span></div>
+  <section class="touch-controls" id="touchControls" aria-label="Touch controls for Mariah">
+    <div class="move-pad" aria-label="Movement controls">
+      <div class="pad-heading"><strong>MOVE</strong><span>MARIAH</span></div>
+      <div class="direction-buttons">
+        <button class="touch-key direction" data-key="a" type="button" aria-label="Move left"><span aria-hidden="true">◀</span></button>
+        <button class="touch-key direction" data-key="d" type="button" aria-label="Move right"><span aria-hidden="true">▶</span></button>
+      </div>
+      <div class="action-mini">
+        <button class="touch-key secondary" data-key="w" type="button" aria-label="Jump">⬆ <span>JUMP</span></button>
+        <button class="touch-key secondary" data-key="s" type="button" aria-label="Block attacks">🛡 <span>BLOCK</span></button>
+      </div>
+    </div>
+    <div class="attack-pad" aria-label="Attack controls">
+      <div class="pad-heading"><strong>ATTACK</strong><span>TAP OR HOLD</span></div>
+      <div class="attack-buttons">
+        <button class="touch-key attack jab-key" data-key="f" type="button" aria-label="Punch"><span class="attack-icon">🥊</span><span>PUNCH</span></button>
+        <button class="touch-key attack hook-key" data-key="g" type="button" aria-label="Hook punch"><span class="attack-icon">💥</span><span>HOOK</span></button>
+        <button class="touch-key attack kick-key" data-key="h" type="button" aria-label="Kick"><span class="attack-icon">🦵</span><span>KICK</span></button>
+      </div>
+    </div>
+  </section>
+  <div class="p2-touch" id="p2Touch" hidden aria-label="Moiz on-screen controls"><b style="width:100%;text-align:center;color:#70e8f5;font-size:12px">MOIZ — PLAYER 2 CONTROLS</b><button class="touch-key" data-key="arrowleft" type="button">◀</button><button class="touch-key" data-key="arrowright" type="button">▶</button><button class="touch-key" data-key="arrowup" type="button">JUMP</button><button class="touch-key" data-key="arrowdown" type="button">BLOCK</button><button class="touch-key attack" data-key="j" type="button">JAB</button><button class="touch-key attack" data-key="k" type="button">HOOK</button><button class="touch-key attack" data-key="l" type="button">KICK</button></div>
+  <div class="instructions"><div class="help"><strong style="color:#ff7793">🥊 MARIAH — Player 1</strong><p><span class="kbd">A</span> <span class="kbd">D</span> Move &nbsp; <span class="kbd">W</span> Jump &nbsp; <span class="kbd">S</span> Block<br><span class="kbd">F</span> Jab &nbsp; <span class="kbd">G</span> Hook &nbsp; <span class="kbd">H</span> Kick</p></div><div class="help"><strong style="color:#6eeaf4">🥊 MOIZ — Player 2 (2-player mode)</strong><p><span class="kbd">←</span> <span class="kbd">→</span> Move &nbsp; <span class="kbd">↑</span> Jump &nbsp; <span class="kbd">↓</span> Block<br><span class="kbd">J</span> Jab &nbsp; <span class="kbd">K</span> Hook &nbsp; <span class="kbd">L</span> Kick &nbsp; <span class="kbd">P</span> Pause</p></div></div>
+  <p class="footer">Everything runs in this one HTML file. The crowd art, arena, animations, fight soundtrack, and sound effects are all generated locally — no downloads or internet connection required.</p>
+</main>
+<script>
+'use strict';
+(() => {
+  const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
+  const W=1100,H=650, el=id=>document.getElementById(id);
+  const keys=Object.create(null), pressed=Object.create(null);
+  let mode='cpu',state='menu',paused=false,round=1,seconds=60,last=0,now=0,shake=0,flash=0,particles=[],floaters=[],crowdTick=0,cameraZoom=0;
+  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+  const rand=(min,max)=>min+Math.random()*(max-min);
+  const fighter=(name,x,color,shorts,skin)=>({name,x,y:0,vx:0,vy:0,dir:1,hp:100,st:100,points:0,wins:0,color,shorts,skin,action:null,actionT:0,cooldown:0,hitT:0,block:false,walkT:0,aiT:0,decision:0,combo:0,comboT:0});
+  const p1=fighter('MARIAH',365,'#ff5678','#a72d5d','#e4a17d');
+  const p2=fighter('MOIZ',735,'#3cd4e6','#2766c6','#b57b5c');
+  p1.dir=1;p2.dir=-1;
+  // Exactly two thousand individually rendered fans, seeded for reproducible placement.
+  let seed=15381; const rng=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296};
+  const palette=['#e55a77','#ffca68','#3cbdde','#8e77d8','#8dd38d','#f78c65','#ebd9b1','#6591d7','#ded2da','#be86ae'];
+  const fans=Array.from({length:2000},(_,i)=>{
+    const col=i%100,row=Math.floor(i/100),x=25+col*10.6+(rng()-.5)*5.7,y=133+row*12.4+(rng()-.5)*4.2;
+    return {x,y,shirt:palette[Math.floor(rng()*palette.length)],skin:['#f2c39d','#d89a76','#af7858','#735043'][Math.floor(rng()*4)],phase:rng()*Math.PI*2,raised:rng()>.73,head:2.35+2.1*(row/19)};
+  });
+  const sponsors=['SNACK ZONE','FRESH POPCORN','RING BITES'];
+  let ac=null,master=null,noiseBuffer=null,nextBeat=0,beat=0,audioEnabled=true;
+  function initAudio(){
+    if(!audioEnabled)return;
+    try{if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.19;master.connect(ac.destination);noiseBuffer=ac.createBuffer(1,ac.sampleRate,ac.sampleRate);const arr=noiseBuffer.getChannelData(0);for(let i=0;i<arr.length;i++)arr[i]=Math.random()*2-1;nextBeat=ac.currentTime+.05;}if(ac.state==='suspended')ac.resume().catch(()=>{});}catch(e){audioEnabled=false;}
+  }
+  function oscillator(t,duration,type,freq,vol,endFreq){if(!ac||!audioEnabled)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,t+duration);g.gain.setValueAtTime(Math.max(.0001,vol),t);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(master);o.start(t);o.stop(t+duration+.01);}
+  function hiss(t,duration,vol,filterFreq=3000){if(!ac||!noiseBuffer||!audioEnabled)return;const src=ac.createBufferSource(),fil=ac.createBiquadFilter(),g=ac.createGain();src.buffer=noiseBuffer;fil.type='highpass';fil.frequency.value=filterFreq;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+duration);src.connect(fil);fil.connect(g);g.connect(master);src.start(t,Math.random()*.6,duration+.01);src.stop(t+duration+.015);}
+  function sound(kind){if(!ac||!audioEnabled)return;const t=ac.currentTime;if(kind==='jab'){hiss(t,.11,.13,600);oscillator(t,.09,'triangle',125,.15,58);}else if(kind==='hook'||kind==='kick'){hiss(t,.2,.20,450);oscillator(t,.2,'sine',160,.22,43);}else if(kind==='block'){oscillator(t,.1,'square',430,.10,180);hiss(t,.065,.08,2000);}else if(kind==='ko'){oscillator(t,.54,'sawtooth',220,.15,50);hiss(t,.48,.13,700);}else if(kind==='bell'){oscillator(t,.95,'sine',830,.11,720);oscillator(t,.85,'sine',1260,.05,1150);} }
+  function audioLoop(){if(!ac||!audioEnabled||state!=='playing'||paused)return;const s=60/110/2;while(nextBeat<ac.currentTime+.13){const step=beat%8;if(step===0||step===4){oscillator(nextBeat,.20,'sine',130,.26,42)}if(step===2||step===6){hiss(nextBeat,.13,.12,1100);oscillator(nextBeat,.10,'triangle',190,.045,80)}hiss(nextBeat,.045,.025,5000);if(step===0||step===3||step===5){oscillator(nextBeat,.18,'triangle',[82.41,98,110][Math.floor(beat/8)%3],.053,[82.41,98,110][Math.floor(beat/8)%3]*.75)}beat++;nextBeat+=s;}}
+  function resetFighter(p,x){p.x=x;p.y=0;p.vx=0;p.vy=0;p.hp=100;p.st=100;p.points=0;p.action=null;p.actionT=0;p.cooldown=0;p.hitT=0;p.block=false;p.combo=0;p.comboT=0;p.intent=null;}
+  function resetMatch(){round=1;p1.wins=p2.wins=0;resetFighter(p1,365);resetFighter(p2,735);p2.decision=.9;seconds=60;particles=[];floaters=[];flash=0;shake=0;paused=false;state='playing';el('pauseBtn').textContent='Ⅱ PAUSE';el('overlay').hidden=true;initAudio();sound('bell');last=performance.now();updateHUD();}
+  function newRound(){round++;seconds=60;resetFighter(p1,365);resetFighter(p2,735);p2.decision=.9;state='playing';paused=false;el('overlay').hidden=true;last=performance.now();initAudio();sound('bell');updateHUD();}
+  function setOverlay(eyebrow,title,desc,button,note){el('overlayEyebrow').textContent=eyebrow;el('overlayTitle').textContent=title;el('overlayText').textContent=desc;el('startBtn').textContent=button;el('overlayNote').textContent=note;el('overlay').hidden=false;}
+  function endRound(reason){if(state!=='playing')return;state='roundOver';sound(reason==='KO'?'ko':'bell');const winner=p1.hp!==p2.hp?(p1.hp>p2.hp?p1:p2):(p1.points!==p2.points?(p1.points>p2.points?p1:p2):null);if(winner)winner.wins++;
+    updateHUD();const matchDone=p1.wins===2||p2.wins===2||round===3;
+    if(matchDone){state='matchOver';if(p1.wins===p2.wins){setOverlay('🏆 CHAMPIONSHIP RESULT','IT’S A DRAW!',`Both fighters went the distance! Final rounds: Mariah ${p1.wins} — ${p2.wins} Moiz. What a close match!`,'🥊 PLAY AGAIN','Press the button to start a fresh championship.');}else{let champ=p1.wins>p2.wins?p1:p2;setOverlay('🏆 CHAMPIONSHIP RESULT',champ.name+' WINS!',`${champ.name} is the Arena Champion! Final rounds: Mariah ${p1.wins} — ${p2.wins} Moiz. The crowd goes wild!`,'🥊 PLAY AGAIN','Press the button to start a fresh championship.');}}
+    else{setOverlay(reason==='KO'?'⚡ KNOCKOUT!':'🔔 TIME!',winner?`${winner.name} TAKES ROUND ${round}!`:`ROUND ${round} IS A DRAW!`,`${winner?winner.name+' wins this round.':'The round was tied.'} Mariah ${p1.wins} — ${p2.wins} Moiz. Get ready for the next round!`,'▶ NEXT ROUND','First fighter to win 2 rounds becomes champion.');}
+  }
+  function updateHUD(){el('hp1').style.width=clamp(p1.hp,0,100)+'%';el('hp2').style.width=clamp(p2.hp,0,100)+'%';el('sp1').style.width=clamp(p1.st,0,100)+'%';el('sp2').style.width=clamp(p2.st,0,100)+'%';el('p1score').textContent=`POINTS ${p1.points}`;el('p2score').textContent=`POINTS ${p2.points}`;el('p1wins').textContent=`ROUNDS ${p1.wins}`;el('p2wins').textContent=`ROUNDS ${p2.wins}`;el('roundLabel').textContent=`ROUND ${round} / 3`;el('timer').textContent=String(Math.max(0,Math.ceil(seconds))).padStart(2,'0');}
+  const attacks={jab:{cost:9,dmg:8,range:128,duration:.27,active:.12,stun:.15,points:10},hook:{cost:20,dmg:16,range:125,duration:.45,active:.22,stun:.28,points:20},kick:{cost:17,dmg:12,range:151,duration:.49,active:.26,stun:.22,points:15}};
+  function attack(p,type){if(state!=='playing'||paused||p.cooldown>0||p.action||p.hitT>.07||p.st<attacks[type].cost||p.block)return false;const a=attacks[type];p.st-=a.cost;p.action=type;p.actionT=0;p.hasHit=false;p.cooldown=a.duration+.08;return true;}
+  // Buffer inputs: a punch pressed during recovery is not silently lost.
+  function requestAttack(p,type){p.intent={type,expires:now+.65};}
+  function executeBuffered(p){if(!p.intent)return;if(now>p.intent.expires){p.intent=null;return;}if(attack(p,p.intent.type))p.intent=null;}
+  function sparkle(x,y,clr,count=12){for(let i=0;i<count;i++)particles.push({x,y,vx:rand(-160,160),vy:rand(-200,45),life:rand(.22,.63),max:.63,color:clr,size:rand(2,6)});}
+  function floater(x,y,text,color){floaters.push({x,y,text,color,life:1.1});}
+  function resolveHit(p,t,kind){const a=attacks[kind],dist=Math.abs(t.x-p.x);if(dist>a.range||Math.abs(t.y-p.y)>78)return;if(Math.sign(t.x-p.x)!==p.dir&&dist>30)return;
+    const blocked=t.block&&t.y===0&&t.st>0;const dmg=blocked?Math.max(1,Math.round(a.dmg*.2)):(p===p2&&mode==='cpu'?Math.ceil(a.dmg*.72):a.dmg);
+    t.hp=clamp(t.hp-dmg,0,100);t.st=clamp(t.st-(blocked?7:3),0,100);t.hitT=blocked?.09:a.stun;t.vx+=p.dir*(blocked?110:kind==='hook'?250:190);p.points+=blocked?2:a.points;
+    if(blocked){sound('block');floater(t.x,t.y+354,'BLOCK!', '#e1ecff');sparkle(t.x-p.dir*25,405-t.y,'#91d8ff',6);}
+    else{sound(kind);shake=kind==='hook'?11:kind==='kick'?8:5;flash=kind==='hook'?.12:.045;sparkle(t.x-p.dir*26,415-t.y,kind==='hook'?'#ffce66':'#ffffff',kind==='hook'?22:14);floater(t.x,362-t.y,'+'+a.points,'#ffdf78');p.combo=p.comboT>0?p.combo+1:1;p.comboT=1.6;if(p.combo>=3)floater(p.x,322-t.y,p.combo+' HIT COMBO!','#ffb86f');}
+    if(t.hp<=0)endRound('KO');
+  }
+  function moveFighter(p,dir,jump,guard,dt){p.block=!!guard&&p.y===0&&!p.action&&p.hitT<=.02;
+    if(!p.block&&p.hitT<=0&&(!p.action||p.action==='jab')){p.vx+=dir*2350*dt;if(jump&&p.y===0){p.vy=690;p.y=.1;}}else{p.vx*=Math.max(0,1-9*dt)}
+    p.vx*=Math.exp(-6.5*dt);p.vx=clamp(p.vx,-290,290);p.x+=p.vx*dt;p.x=clamp(p.x,266,834);
+    if(p.y>0||p.vy>0){p.y+=p.vy*dt;p.vy-=1750*dt;if(p.y<=0){p.y=0;p.vy=0;}}
+    p.walkT+=Math.abs(p.vx)*dt*.055;
+  }
+  function ai(dt){p2.decision-=dt;const gap=Math.abs(p2.x-p1.x);if(p2.decision<=0){p2.decision=rand(.52,.92);p2.aiT=Math.random();if(gap<136&&Math.random()<.43)attack(p2,Math.random()<.43?'jab':Math.random()<.55?'hook':'kick');}
+    const guard=gap<150&&p1.action&&Math.random()<.025||p2.block&&Math.random()<.025;
+    const dir=gap>108?-1:gap<78?1:0;
+    moveFighter(p2,dir, false,guard,dt);
+    if(gap<128&&!p2.action&&p2.cooldown===0&&Math.random()<dt*.20)attack(p2,'jab');
+  }
+  function updateFighter(p,t,dt){p.cooldown=Math.max(0,p.cooldown-dt);p.hitT=Math.max(0,p.hitT-dt);p.comboT=Math.max(0,p.comboT-dt);p.st=clamp(p.st+(p.block?12:27)*dt,0,100);p.dir=t.x>p.x?1:-1;
+    if(p.action){p.actionT+=dt;const a=attacks[p.action];if(!p.hasHit&&p.actionT>=a.active){p.hasHit=true;resolveHit(p,t,p.action);}if(p.actionT>=a.duration){p.action=null;p.actionT=0;}}
+  }
+  function update(dt){now+=dt;crowdTick+=dt;shake=Math.max(0,shake-45*dt);flash=Math.max(0,flash-dt);for(const obj of particles){obj.x+=obj.vx*dt;obj.y+=obj.vy*dt;obj.vy+=300*dt;obj.life-=dt;}particles=particles.filter(p=>p.life>0);for(const f of floaters){f.y-=42*dt;f.life-=dt;}floaters=floaters.filter(f=>f.life>0);
+    if(state!=='playing'||paused)return;
+    seconds-=dt;if(seconds<=0){seconds=0;endRound('TIME');return;}
+    let d1=(keys.a?-1:0)+(keys.d?1:0);moveFighter(p1,d1,keys.w,keys.s,dt);
+    if(mode==='cpu')ai(dt);else moveFighter(p2,(keys.arrowleft?-1:0)+(keys.arrowright?1:0),keys.arrowup,keys.arrowdown,dt);
+    if(Math.abs(p1.x-p2.x)<84){const push=(84-Math.abs(p1.x-p2.x))*.5;p1.x-=push;p2.x+=push;}
+    // P1 inputs are processed before the CPU can land its next hit. Holding a
+    // button repeats attacks as stamina allows, and fast taps are buffered.
+    if(pressed.h||keys.h)requestAttack(p1,'kick');
+    else if(pressed.g||keys.g)requestAttack(p1,'hook');
+    else if(pressed.f||pressed[' ']||keys.f||keys[' '])requestAttack(p1,'jab');
+    if(mode==='local'){
+      if(pressed.l||keys.l)requestAttack(p2,'kick');
+      else if(pressed.k||keys.k)requestAttack(p2,'hook');
+      else if(pressed.j||keys.j)requestAttack(p2,'jab');
+    }
+    executeBuffered(p1);if(mode==='local')executeBuffered(p2);
+    updateFighter(p1,p2,dt);updateFighter(p2,p1,dt);
+    for(const k of Object.keys(pressed))delete pressed[k];
+    updateHUD();audioLoop();
+  }
+  // Drawing helpers
+  function poly(points,fill,stroke,lineWidth=1){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lineWidth;ctx.stroke();}}
+  function rr(x,y,w,h,r,color,stroke){if(w<=0||h<=0)return;ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(color){ctx.fillStyle=color;ctx.fill();}if(stroke){ctx.lineWidth=1.5;ctx.strokeStyle=stroke;ctx.stroke();}}
+  function line(x1,y1,x2,y2,col,w=2){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=w;ctx.stroke();}
+  function text(t,x,y,size,color='#fff',font='900',align='center'){ctx.fillStyle=color;ctx.textAlign=align;ctx.font=`${font} ${size}px system-ui,Arial`;ctx.fillText(t,x,y);ctx.textAlign='left';}
+  function lights(){const g=ctx.createLinearGradient(0,0,0,460);g.addColorStop(0,'#0c1731');g.addColorStop(.65,'#213154');g.addColorStop(1,'#0c1629');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    for(let i=0;i<8;i++){let x=35+i*149;const glow=ctx.createRadialGradient(x,56,2,x,56,96);glow.addColorStop(0,'#aac4ff45');glow.addColorStop(1,'#aac4ff00');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(x,56,96,0,Math.PI*2);ctx.fill();rr(x-26,31,52,10,4,'#e1efff');}
+    // Camera-friendly converging spotlight beams.
+    poly([[112,43],[360,470],[520,470]],'#b2d4ff0b');poly([[990,43],[590,472],[770,472]],'#b2d4ff0b');
+  }
+  function arenaSigns(){rr(286,64,528,66,12,'#090f25','#4a6795');rr(298,74,504,44,7,'#15294e','#5780b5');text('★ THE WORLD BOXING NIGHT ★',550,96,20,'#ffe2a5');text('MARIAH      VS      MOIZ',550,116,12,'#a9ecff');
+    rr(31,72,211,48,8,'#14274c','#335c94');text('SOLD OUT',137,92,13,'#ffde8b');text('2,000 FANS',137,111,16,'#fff');
+    rr(863,72,206,48,8,'#14274c','#335c94');text('ARENA LIVE',966,93,14,'#a2f5f8');text('CHAMPIONSHIP',966,111,12,'#fff');
+    for(let i=0;i<9;i++){const x=15+i*136;rr(x,372,117,12,2,i%2?'#d94763':'#225aa1');}
+    text('RING RIVALS • CHAMPIONSHIP BOXING • RING RIVALS',550,381,10,'#fff');
+  }
+  function crowd(){// 20 rows of 100 individual spectators = 2,000.
+    for(let row=0;row<20;row++){const y=129+row*12.4;ctx.fillStyle=row%2?'#172746':'#203052';ctx.fillRect(10,y+5,1080,9);}
+    for(const f of fans){const bob=(Math.sin(crowdTick*2.6+f.phase)+1)*.9,wiggle=f.raised?Math.sin(crowdTick*4.8+f.phase)*2:0,x=f.x,y=f.y-bob;const s=f.head;
+      ctx.fillStyle='#050b1d';ctx.fillRect(x-s-.4,y+s*.5,s*2+1,s*1.4);
+      ctx.fillStyle=f.shirt;ctx.fillRect(x-s,y+s*.5,s*2,s*1.7);
+      ctx.fillStyle=f.skin;ctx.fillRect(x-s*.65,y-s*.8,s*1.3,s*1.5);
+      if(f.raised){line(x+s,y+s*.7,x+s+wiggle,y-s*1.5,f.skin,1.3);}
+    }
+    const grad=ctx.createLinearGradient(0,320,0,399);grad.addColorStop(0,'#101b2b00');grad.addColorStop(1,'#091327e5');ctx.fillStyle=grad;ctx.fillRect(0,310,1100,90);
+  }
+  function foodCourt(x,side){ctx.save();ctx.translate(x,0);const c=side==='left'?'#b83c5d':'#2179a5';rr(0,326,200,112,7,'#22304a','#657c9b');rr(-8,303,216,30,5,c,'#d2a36c');text('FOOD COURT',100,325,18,'#fff');rr(9,338,182,57,4,'#121a2b','#527192');rr(0,402,200,37,2,'#323e52');line(12,402,187,402,'#7a8caa',3);
+    rr(15,344,58,43,3,'#623e35');text('🍔',44,374,25);rr(75,344,52,43,3,'#51402e');text('🍿',100,373,25);rr(132,344,52,43,3,'#284964');text('🥤',158,374,24);
+    text('BURGERS • POPCORN • SODA',100,422,10,'#ffdcaa');
+    // Small customers at the counter.
+    for(let i=0;i<3;i++){const px=34+i*66;ctx.fillStyle=['#e6a57e','#cc916d','#8d6247'][i];ctx.beginPath();ctx.arc(px,446,9,0,Math.PI*2);ctx.fill();rr(px-11,454,22,26,7,['#4573c3','#d65f7a','#a680d3'][i]);}
+    ctx.restore();}
+  function ringBack(){
+    poly([[174,442],[925,442],[987,571],[106,571]],'#101d35','#576d90',4);
+    poly([[212,452],[886,452],[951,555],[145,555]],'#5b78a5','#92afd5',3);
+    poly([[224,458],[875,458],[937,548],[160,548]],'#c9e0f0');
+    // subtle canvas grid
+    for(let i=0;i<13;i++){line(215+i*54,457,164+i*64,546,'#83abc526',1);}
+    text('RING',549,510,59,'#739abf50');text('RIVALS',549,538,29,'#739abf66');
+    // Rear ropes and corner posts (fighters in front).
+    for(const y of [400,421,442]){line(207,y,894,y,y===421?'#edf5fd':'#ce4769',5);line(207,y,894,y-1,'#fff8',1);}
+    for(const x of [207,894]){rr(x-12,383,24,78,4,x<500?'#d83b60':'#1b88d1','#fff5');rr(x-17,379,34,12,4,'#e3e7f3');}
+  }
+  function frontRopes(){
+    for(let i=0;i<3;i++){const yy=571+i*13;line(114,yy,986,yy,i===1?'#f6f9ff':i===0?'#cf4766':'#3b73d0',6);line(114,yy-2,986,yy-2,'#ffffff84',1.5);}
+    line(207,399,114,571,'#ce4769',5);line(894,399,986,571,'#3c85d0',5);
+    rr(101,559,26,58,4,'#c43659','#dbe2fa');rr(972,559,26,58,4,'#2b68ba','#dbe2fa');rr(96,551,36,13,4,'#f2edf1');rr(967,551,36,13,4,'#f2edf1');
+    // padded turnbuckle labels
+    rr(99,577,32,24,5,'#8c2543');rr(968,577,32,24,5,'#205389');
+  }
+  function fighterDraw(p){const x=p.x,y=535-p.y,bob=Math.sin(now*8+p.walkT)*2.2*(p.y===0?1:.3),stun=p.hitT>0,punch=p.action,progress=punch?(p.actionT/attacks[punch].duration):0,extend=punch?Math.sin(Math.PI*clamp(progress,0,1)):0;
+    ctx.save();ctx.translate(x,y+bob);ctx.scale(p.dir,1);
+    if(stun)ctx.rotate(-.08);const side=p.name==='MARIAH';
+    // Ground shadow
+    ctx.save();ctx.translate(0,4+p.y);ctx.scale(1,Math.max(.4,1-p.y/240));ctx.fillStyle='#152a4d66';ctx.beginPath();ctx.ellipse(0,5,45,10,0,0,Math.PI*2);ctx.fill();ctx.restore();
+    const stride=Math.sin(p.walkT)*Math.min(1,Math.abs(p.vx)/140)*15;
+    // Back leg and boots
+    line(-15,-58,-19-stride,-23,p.skin,17);line(-19-stride,-23,-24-stride,0,'#304466',13);rr(-41-stride,-4,29,12,5,side?'#ffe3e7':'#b0f9ff');
+    line(17,-56,18+stride,-24,p.skin,18);line(18+stride,-24,24+stride,0,'#304466',14);rr(10+stride,-4,32,12,5,side?'#fff':'#e3fbff');
+    // Back arm/glove
+    line(-26,-112,-36,-91,p.skin,17);line(-36,-91,-10,-102,p.skin,16);rr(-20,-119,25,29,10,p.color,'#fff7');
+    // Shorts waist
+    rr(-31,-74,62,31,9,p.shorts,'#0c2546');rr(-31,-77,62,10,4,side?'#ffc1d1':'#7ae8f4');
+    line(0,-73,0,-45,'#ffffff9b',2);
+    // Chest and uniform
+    poly([[-27,-126],[24,-126],[34,-74],[-30,-74]],side?'#eb486d':'#2677ae','#163053',2);
+    poly([[-9,-123],[9,-123],[16,-76],[-15,-76]],side?'#fca8aa':'#6ce6ee');
+    text(side?'M':'Z',0,-92,20,side?'#8d2345':'#0c537d');
+    // Neck & head
+    rr(-11,-143,22,23,5,p.skin);ctx.fillStyle=p.skin;ctx.beginPath();ctx.ellipse(0,-166,28,31,0,0,Math.PI*2);ctx.fill();
+    // Hair / face differences
+    if(side){ctx.fillStyle='#292037';ctx.beginPath();ctx.ellipse(-3,-184,29,18,.02,Math.PI,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(-28,-172,10,22,-.12,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(-26,-206,13,23,.4,0,Math.PI*2);ctx.fill();}
+    else{ctx.fillStyle='#222733';ctx.beginPath();ctx.ellipse(0,-189,30,18,0,Math.PI,Math.PI*2);ctx.fill();poly([[-28,-184],[-21,-205],[-9,-193],[0,-208],[10,-195],[22,-207],[28,-182]],'#202633');}
+    // eyes and expression
+    ctx.fillStyle='#192138';ctx.beginPath();ctx.arc(12,-169,2.5,0,Math.PI*2);ctx.arc(-9,-170,2.2,0,Math.PI*2);ctx.fill();line(5,-154,17,-153,'#783d48',2);
+    // Front arm / boxing glove with punches
+    const thrust=punch==='jab'?75*extend:punch==='hook'?53*extend:punch==='kick'?9*extend:0;
+    const raised=p.block?-18:0;
+    line(23,-114,33+thrust*.55,-95+raised,p.skin,18);line(33+thrust*.55,-95+raised,28+thrust,-115+raised,p.skin,15);
+    rr(19+thrust,-136+raised,31,32,11,p.color,'#fff9');rr(21+thrust,-138+raised,27,8,4,'#ffffff6b');
+    if(punch==='hook'){ctx.strokeStyle='#ffc96e77';ctx.lineWidth=5;ctx.beginPath();ctx.arc(18+thrust,-124,27,-1.6,.75);ctx.stroke();}
+    if(punch==='kick'){line(17,-50,20+90*extend,-63-20*extend,p.skin,19);rr(8+90*extend,-74-20*extend,32,15,6,'#f8f8ff');}
+    if(p.block){rr(-7,-148,29,32,10,p.color,'#fff8');}
+    if(stun){ctx.fillStyle='#ffffff7d';ctx.beginPath();ctx.arc(0,-167,35,0,Math.PI*2);ctx.fill();}
+    ctx.restore();
+    // Name tag below fighter (above front ropes)
+    rr(x-44,550,88,22,7,'#0d182fdb',p.color);text(p.name,x,565,12,'#f8fcff');
+  }
+  function fx(){for(const p of particles){ctx.globalAlpha=clamp(p.life/p.max,0,1);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;for(const f of floaters){ctx.globalAlpha=clamp(f.life,0,1);text(f.text,f.x,f.y,18,f.color);}ctx.globalAlpha=1;
+    if(flash){ctx.fillStyle=`rgba(255,246,215,${flash*.95})`;ctx.fillRect(0,0,W,H);}}
+  // Follow BOTH boxers in portrait. The arena uses a cinematic close-up, but
+  // the viewport tracks their midpoint so neither disappears as they move.
+  let lastCameraX=null, cameraMobile=false;
+  function positionCamera(){
+    const useCamera=window.matchMedia('(max-width:850px), (pointer:coarse)').matches &&
+      !window.matchMedia('(orientation:landscape) and (max-height:550px) and (pointer:coarse)').matches;
+    if(!useCamera){if(cameraMobile){canvas.style.removeProperty('left');canvas.style.removeProperty('transform');cameraMobile=false;lastCameraX=null;}return;}
+    cameraMobile=true;
+    const view=canvas.parentElement.clientWidth, imageW=canvas.clientWidth;
+    if(!view||!imageW)return;
+    const target=(p1.x+p2.x)*.5;
+    const minX=Math.min(0,view-imageW);
+    const x=clamp(view*.5-target/W*imageW,minX,0);
+    if(lastCameraX===null||Math.abs(x-lastCameraX)>.65){
+      canvas.style.left=x.toFixed(2)+'px';canvas.style.transform='none';lastCameraX=x;
+    }
+  }
+  function draw(){positionCamera();ctx.clearRect(0,0,W,H);ctx.save();if(shake>0){ctx.translate(rand(-shake,shake),rand(-shake*.5,shake*.5));}
+    lights();crowd();arenaSigns();foodCourt(18,'left');foodCourt(881,'right');
+    // Audience-barrier silhouette and nearby fans.
+    rr(0,477,1100,55,2,'#0a1328');for(let i=0;i<29;i++){const x=i*39+9,headY=462+Math.sin(i*19)*8;ctx.fillStyle=i%3?'#1c2d4e':'#263755';ctx.beginPath();ctx.ellipse(x,headY,9,10,0,0,Math.PI*2);ctx.fill();rr(x-13,headY+7,26,32,7,i%4?'#152340':'#38405c');}
+    ringBack();fighterDraw(p1);fighterDraw(p2);frontRopes();fx();
+    if(paused&&state==='playing'){ctx.fillStyle='#071027aa';ctx.fillRect(0,0,W,H);text('PAUSED',550,300,60,'#fff');text('Press P or Resume to continue',550,340,17,'#cbdcf5');}
+    ctx.restore();}
+  function loop(time){const dt=last?clamp((time-last)/1000,0,.04):.016;last=time;update(dt);draw();requestAnimationFrame(loop);}
+  function keySet(key,isDown){const k=key.toLowerCase();if(['arrowleft','arrowright','arrowup','arrowdown',' ','a','d','w','s','f','g','h','j','k','l','p'].includes(k))return k;return null;}
+  window.addEventListener('keydown',e=>{const k=keySet(e.key,true);if(!k)return;if(['arrowleft','arrowright','arrowup','arrowdown',' '].includes(k))e.preventDefault();if(!keys[k])pressed[k]=true;keys[k]=true;if(k==='p'&&!e.repeat)togglePause();});
+  window.addEventListener('keyup',e=>{const k=keySet(e.key,false);if(k)keys[k]=false;});window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false;for(const k in pressed)delete pressed[k];if(state==='playing')setPause(true);});
+  // Multiple fingers can move and attack simultaneously. Pointer capture stops
+  // buttons from getting stuck if a finger slides outside its original key.
+  const activeTouches=new Map();
+  document.querySelectorAll('.touch-key').forEach(btn=>{
+    const k=btn.dataset.key;
+    function down(e){
+      if(e.pointerType==='mouse'&&e.button!==0)return;
+      e.preventDefault();
+      activeTouches.set(e.pointerId,{k,btn});
+      btn.classList.add('pressed');
+      if(!keys[k])pressed[k]=true;
+      keys[k]=true;
+      try{btn.setPointerCapture(e.pointerId);}catch(_){}
+    }
+    function up(e){
+      e.preventDefault();
+      const active=activeTouches.get(e.pointerId);
+      if(!active||active.btn!==btn)return;
+      activeTouches.delete(e.pointerId);
+      const stillHeld=[...activeTouches.values()].some(v=>v.k===k);
+      btn.classList.remove('pressed');
+      if(!stillHeld)keys[k]=false;
+    }
+    btn.addEventListener('pointerdown',down);
+    btn.addEventListener('pointerup',up);
+    btn.addEventListener('pointercancel',up);
+    btn.addEventListener('lostpointercapture',up);
+    btn.addEventListener('contextmenu',e=>e.preventDefault());
+  });
+  function clearTouch(){activeTouches.clear();document.querySelectorAll('.touch-key.pressed').forEach(b=>b.classList.remove('pressed'));for(const k in keys)keys[k]=false;}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTouch();if(state==='playing')setPause(true);}});
+  window.addEventListener('pagehide',clearTouch);
+  // Let tapping anywhere on the ring show where the characters are without page zoom.
+  document.getElementById('touchControls').addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+  function setPause(val){if(state!=='playing')return;paused=val;el('pauseBtn').textContent=paused?'▶ RESUME':'Ⅱ PAUSE';if(!paused)last=performance.now();}
+  function togglePause(){setPause(!paused);}
+  el('controlsBtn').addEventListener('click',()=>{const panel=el('controlsPanel');panel.hidden=!panel.hidden;el('controlsBtn').setAttribute('aria-expanded',String(!panel.hidden));el('controlsBtn').textContent=panel.hidden?'🎮 CONTROLS':'🎮 HIDE CONTROLS';});
+  el('startBtn').addEventListener('click',()=>{if(state==='roundOver')newRound();else resetMatch();});
+  el('restartBtn').addEventListener('click',resetMatch);
+  el('pauseBtn').addEventListener('click',togglePause);
+  el('modeBtn').addEventListener('click',()=>{mode=mode==='cpu'?'local':'cpu';el('modeBtn').textContent=mode==='cpu'?'MODE: VS COMPUTER':'MODE: 2 PLAYERS';el('modeLine').textContent=mode==='cpu'?'PLAYER 1 vs COMPUTER AI':'2-PLAYER LOCAL MULTIPLAYER';el('p2Touch').hidden=mode==='cpu';resetMatch();});
+  el('soundBtn').addEventListener('click',()=>{audioEnabled=!audioEnabled;if(audioEnabled)initAudio();if(master)master.gain.value=audioEnabled?.19:0;el('soundBtn').textContent=audioEnabled?'♫ SOUND: ON':'♫ SOUND: OFF';el('soundBtn').setAttribute('aria-pressed',String(audioEnabled));});
+  updateHUD();requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
